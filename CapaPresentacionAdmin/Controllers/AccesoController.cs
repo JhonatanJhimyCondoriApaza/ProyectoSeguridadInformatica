@@ -33,7 +33,7 @@ namespace CapaPresentacionAdmin.Controllers
         {
             Usuario oUsuario = new Usuario();
 
-            oUsuario = new CN_Usuarios().Listar().Where(u => u.Correo == correo && u.Clave == CN_Recursos.ConvertirSha256(clave)).FirstOrDefault();
+            oUsuario = new CN_Usuarios().Listar().Where(u => u.Correo_ins == correo && u.Clave == CN_Recursos.ConvertirSha256(clave)).FirstOrDefault();
 
 
             if (oUsuario == null)
