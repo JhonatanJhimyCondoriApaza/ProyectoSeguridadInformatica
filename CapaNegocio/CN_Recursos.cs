@@ -39,6 +39,24 @@ namespace CapaNegocio
             return texto;
         }
 
+        public static string GenerarCorreoInstitucional(string nombres, string apellidos)
+        {
+            Random rnd = new Random();
+            string correo_ins = "";
+            string [] cadena_nombres = nombres.Split(' ');
+            string [] cadena_apellidos = apellidos.Split(' ');
+            foreach (string palabra in cadena_nombres) {
+                correo_ins += palabra[0];
+            }
+
+            foreach (string palabra in cadena_apellidos)
+            {
+                correo_ins += palabra[0];
+            }
+
+            correo_ins += DateTime.Now.Year+""+rnd.Next(100, 999)+".cargo"+"@ferreland.com";
+            return correo_ins;
+        }
 
         public static bool EnviarCorreo(string correo,string asunto, string mensaje) {
             bool resultado = false;

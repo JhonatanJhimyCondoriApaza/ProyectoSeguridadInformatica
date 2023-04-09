@@ -39,6 +39,7 @@ namespace CapaNegocio
             {
 
                 string clave = CN_Recursos.GenerarClave();
+                string correo_institucional = CN_Recursos.GenerarCorreoInstitucional(obj.Nombres, obj.Apellidos);
 
                 string asunto = "Creacion de Cuenta";
                 string mensaje_correo = "<h3>Su cuenta fue creada correctamente</h3></br><p>Su contraseña para acceder es: !clave!</p>";
@@ -49,7 +50,7 @@ namespace CapaNegocio
 
                 if (respuesta)
                 {
-
+                    obj.Correo_ins = correo_institucional;
                     obj.Clave = CN_Recursos.ConvertirSha256(clave);
                     return objCapaDato.Registrar(obj, out Mensaje);
                 }
