@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Security.Cryptography;
+
 
 
 
@@ -138,7 +140,20 @@ namespace CapaPresentacionAdmin.Controllers
                 wb.Worksheets.Add(dt);
                 using (MemoryStream stream = new MemoryStream()) {
                     wb.SaveAs(stream);
-                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "ReporteVenta" + DateTime.Now.ToString() + ".xlsx");
+                    
+                    DateTime dateTime = DateTime.Now;
+
+                    var variable = File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "ReporteVenta" + dateTime.ToString() + ".xlsx");
+                    
+                    Reporte_hash nuevo_objeto = new Reporte_hash();
+                    
+                    SHA256 valor_hash = SHA256.Create();
+                    string hashValue = Convert.ToBase64String(valor_hash.ComputeHash(stream));
+
+                    CN_Reporte valor_instancia = new CN_Reporte();
+                    valor_instancia.guardadoReporteHash(hashValue.ToString(), dateTime);
+
+                    return variable;
                 
                 }
             }

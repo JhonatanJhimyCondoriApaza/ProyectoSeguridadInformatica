@@ -15,6 +15,29 @@ namespace CapaDatos
 {
     public class CD_Reporte
     {
+        public void guardado(Reporte_hash objeto_reporte) 
+        {
+            try
+            {
+                using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
+                {
+                    oconexion.Open();
+                    string queryInsert = "INSERT INTO REPORTE(ValorHash,FechaReporte) VALUES(@param2, @param3 )";
+                    SqlCommand cmd = new SqlCommand(queryInsert, oconexion);
+                    cmd.Parameters.AddWithValue("@param2", objeto_reporte.ValorHash);
+                    cmd.Parameters.AddWithValue("@param3", objeto_reporte.FechaReporte);
+                    cmd.ExecuteNonQuery();
+                    Console.WriteLine("Codigo 200 , todo okey...");
+
+                    oconexion.Close();
+                }
+
+            }
+            catch
+            {
+                Console.WriteLine("Error al ingresar los datos...");
+            }
+        }
 
         public List<Reporte> Ventas(string fechainicio, string fechafin, string idtransaccion)
         {

@@ -19,7 +19,13 @@ namespace CapaNegocio
             return objCapaDato.Ventas(fechainicio,fechafin,idtransaccion);
         }
 
-
+        public void guardadoReporteHash(string valorHash, DateTime fechaGuardado) 
+        {
+            Reporte_hash valorReporte = new Reporte_hash();
+            valorReporte.ValorHash = valorHash;
+            valorReporte.FechaReporte = fechaGuardado;
+            objCapaDato.guardado(valorReporte);
+        }
         public DashBoard VerDashBoard()
         {
             return objCapaDato.VerDashBoard();
